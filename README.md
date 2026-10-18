@@ -1,10 +1,10 @@
-# keyboard-light
+# kblinkboard
 
 Control de las luces del teclado **Epomaker TH80** (USB `3151:4002`) en macOS
 con Apple Silicon, sin el driver oficial de Epomaker ni Rosetta. Incluye una
 app con ventana (PySide6) y una CLI (Typer).
 
-![Keyboard Light](docs/app.png)
+![kblinkboard](docs/app.png)
 
 ## Por qué existe
 
@@ -34,7 +34,7 @@ uv sync
 ## App con ventana
 
 ```sh
-uv run keyboard-light-gui
+uv run kblinkboard-gui
 ```
 
 - Al abrirse lee la configuración actual del teclado.
@@ -60,15 +60,15 @@ app abierta y aunque lo desconectes.
 ## CLI
 
 ```sh
-uv run keyboard-light info                       # estado actual (solo lectura)
-uv run keyboard-light modos                      # lista de efectos
-uv run keyboard-light color ff0080 --brillo 3    # todo el teclado en un color
-uv run keyboard-light modo ondulacion --arcoiris -v 3
-uv run keyboard-light modo respiracion -c 00ff00
-uv run keyboard-light modo onda --arcoiris -o 1  # -o: dirección del efecto
-uv run keyboard-light brillo 2
-uv run keyboard-light apagar
-uv run keyboard-light encender
+uv run kblinkboard info                       # estado actual (solo lectura)
+uv run kblinkboard modos                      # lista de efectos
+uv run kblinkboard color ff0080 --brillo 3    # todo el teclado en un color
+uv run kblinkboard modo ondulacion --arcoiris -v 3
+uv run kblinkboard modo respiracion -c 00ff00
+uv run kblinkboard modo onda --arcoiris -o 1  # -o: dirección del efecto
+uv run kblinkboard brillo 2
+uv run kblinkboard apagar
+uv run kblinkboard encender
 ```
 
 Brillo y velocidad van de 0 a 4. Los colores se escriben en hex (`ff0080`).
@@ -100,7 +100,7 @@ Brillo y velocidad van de 0 a 4. Los colores se escriben en hex (`ff0080`).
 - Este firmware lee al revés los flags de "color fijo" y "arcoíris" respecto a
   la mayoría de teclados ROYUAN; el programa ya lo tiene en cuenta. Si en otro
   firmware `color` pone varios colores en vez de uno, usa `--invertir` (o
-  exporta `KEYBOARD_LIGHT_INVERTIR=1`).
+  exporta `KBLINKBOARD_INVERTIR=1`).
 - Leer justo después de escribir, en la misma conexión, bloquea el canal de
   ajustes hasta reconectar el cable. Por eso los cambios no se leen de vuelta
   y cada operación abre su propia conexión.
@@ -108,7 +108,7 @@ Brillo y velocidad van de 0 a 4. Los colores se escriben en hex (`ff0080`).
   teclado no lo permite; el programa lo desactiva antes de abrirlo.
 
 ```
-src/keyboard_light/
+src/kblinkboard/
 ├── device.py   # protocolo HID (lectura, luces, retroiluminación)
 ├── cli.py      # comandos Typer
 └── gui.py      # app PySide6: ventana, vista previa y barra de menú

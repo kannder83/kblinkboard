@@ -2,7 +2,7 @@ from typing import Annotated
 
 import typer
 
-from keyboard_light.device import MODES, Keyboard, KeyboardError, LedParam
+from kblinkboard.device import MODES, Keyboard, KeyboardError, LedParam
 
 app = typer.Typer(
     help="Cambia las luces del teclado Epomaker TH80 (conectado por cable USB).",
@@ -48,7 +48,7 @@ def main(
         bool,
         typer.Option(
             "--invertir",
-            envvar="KEYBOARD_LIGHT_INVERTIR",
+            envvar="KBLINKBOARD_INVERTIR",
             help="Úsalo si 'color' pone varios colores en vez de uno (otros firmwares).",
         ),
     ] = False,

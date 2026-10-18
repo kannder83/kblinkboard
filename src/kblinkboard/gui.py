@@ -27,7 +27,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from keyboard_light.device import MODE_OPTIONS, MODES, PRESET_COLORS, Keyboard, KeyboardError, LedParam
+from kblinkboard.device import MODE_OPTIONS, MODES, PRESET_COLORS, Keyboard, KeyboardError, LedParam
 
 MODE_LABELS = {
     "estatico": "Estático",
@@ -332,7 +332,7 @@ def _slider() -> QSlider:
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Keyboard Light · TH80")
+        self.setWindowTitle("kblinkboard · TH80")
         self.color = QColor(0, 128, 255)
         self.backlight = True
         self._loading = False
@@ -553,7 +553,7 @@ def tray_icon() -> QIcon:
 
 def build_tray(app: QApplication, window: MainWindow) -> QSystemTrayIcon:
     tray = QSystemTrayIcon(tray_icon(), app)
-    tray.setToolTip("Keyboard Light")
+    tray.setToolTip("kblinkboard")
     menu = QMenu()
     for preset in PRESETS:
         action = QAction(preset.name, menu)
@@ -574,7 +574,7 @@ def build_tray(app: QApplication, window: MainWindow) -> QSystemTrayIcon:
 
 def main() -> None:
     app = QApplication(sys.argv)
-    app.setApplicationName("Keyboard Light")
+    app.setApplicationName("kblinkboard")
     window = MainWindow()
     if QSystemTrayIcon.isSystemTrayAvailable():
         # Closing the window only hides it; the app stays in the menu bar.
