@@ -6,11 +6,11 @@ readme = "README.md"
 authors = [
     { name = "Alejandro Ruiz", email = "kannder.ziur@gmail.com" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
-    "hidapi>=0.15.0",
-    "pyside6-essentials>=6.12.0",
-    "typer>=0.27.3",
+    "hidapi>=0.15,<0.16",
+    "pyside6-essentials>=6.12,<7",
+    "typer>=0.27,<1",
 ]
 
 [project.scripts]

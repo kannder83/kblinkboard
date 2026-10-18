@@ -28,8 +28,14 @@ Solo envía comandos de luces y de lectura; **nunca toca el firmware**.
   entrada. Después cierra la terminal y vuelve a abrirla.
 
 ```sh
-uv sync
+uv sync --locked
 ```
+
+Las versiones están fijadas: `uv.lock` guarda la versión exacta y el hash de
+cada paquete, y `.python-version` fija Python 3.13.3. `--locked` hace que la
+instalación falle si el lock no coincide con `pyproject.toml`, en vez de
+actualizarlo en silencio. `hidapi` va acotado a 0.15.x porque el programa usa
+una función interna suya para abrir el teclado en macOS.
 
 ## App con ventana
 
