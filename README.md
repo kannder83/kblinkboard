@@ -31,10 +31,14 @@ Solo envía comandos de luces y de lectura; **nunca toca el firmware**.
 uv sync --locked
 ```
 
-Las versiones están fijadas: `uv.lock` guarda la versión exacta y el hash de
-cada paquete, y `.python-version` fija Python 3.13.3. `--locked` hace que la
-instalación falle si el lock no coincide con `pyproject.toml`, en vez de
-actualizarlo en silencio. `hidapi` va acotado a 0.15.x porque el programa usa
+Las versiones están fijadas: `pyproject.toml` pide versiones exactas
+(`hidapi==0.15.0`, `pyside6-essentials==6.12.0`, `typer==0.27.3`), `uv.lock`
+guarda también la versión y el hash de cada dependencia indirecta, y
+`.python-version` fija Python 3.14.0. `--locked` hace que la instalación falle
+si el lock no coincide con `pyproject.toml`, en vez de actualizarlo en silencio.
+
+Python 3.15 todavía no sirve: `hidapi 0.15.0` no publica versión precompilada
+para él. Y `hidapi` conviene no actualizarlo sin probar, porque el programa usa
 una función interna suya para abrir el teclado en macOS.
 
 ## App con ventana
@@ -118,7 +122,20 @@ src/kblinkboard/
 ├── device.py   # protocolo HID (lectura, luces, retroiluminación)
 ├── cli.py      # comandos Typer
 └── gui.py      # app PySide6: ventana, vista previa y barra de menú
+tests/          # pytest, con un teclado simulado
 ```
+
+## Tests
+
+```sh
+uv run pytest
+```
+
+Los tests usan un teclado simulado (`tests/conftest.py`), así que no necesitan
+el TH80 conectado ni cambian sus luces. Comprueban los paquetes que se envían
+byte a byte (checksums, flags, velocidad invertida, blanco como `FAFAFA`), que
+nunca se lea justo después de escribir, los comandos de la CLI y la app
+(vista previa, controles y efectos rápidos) en modo sin pantalla.
 
 ## Si algo se desconfigura
 

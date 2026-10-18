@@ -132,6 +132,8 @@ def key_for_event(event) -> int | None:
     label = _QT_KEYS.get(event.key())
     if label is None:
         text = event.text().upper()
+        if not text:
+            return None  # the space bar's label is "", so keys without text would light it
         label = _SHIFTED.get(text, text)
     return _KEY_INDEX.get(label)
 
