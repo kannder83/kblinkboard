@@ -1,0 +1,22 @@
+[project]
+name = "keyboard-light"
+version = "0.1.0"
+description = "Control de luces del teclado Epomaker TH80 en macOS (CLI y app PySide6)"
+readme = "README.md"
+authors = [
+    { name = "Alejandro Ruiz", email = "kannder.ziur@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "hidapi>=0.15.0",
+    "pyside6-essentials>=6.12.0",
+    "typer>=0.27.3",
+]
+
+[project.scripts]
+keyboard-light = "keyboard_light:main"
+keyboard-light-gui = "keyboard_light.gui:main"
+
+[build-system]
+requires = ["uv_build>=0.9.2,<0.10.0"]
+build-backend = "uv_build"
