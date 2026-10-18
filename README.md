@@ -58,8 +58,9 @@ uv run kblinkboard-gui
 - **Efectos rápidos**: Ondulación arcoíris, Ondulación roja, Onda arcoíris,
   Respiración azul, Azul fijo y Blanco fijo.
 - **Icono en la barra de menú** con los mismos efectos rápidos y para apagar o
-  encender las luces. Cerrar la ventana solo la oculta; para salir usa
-  **Salir** en ese menú o ⌘Q.
+  encender las luces mientras la app está abierta.
+- **Cerrar la ventana cierra la app** y libera la terminal, igual que ⌘Q,
+  **Salir** en el menú o Ctrl+C en la terminal.
 
 ### Dejar un efecto fijo
 

@@ -2,6 +2,7 @@
 
 import colorsys
 import math
+import signal
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -564,8 +565,6 @@ def build_tray(app: QApplication, window: MainWindow) -> QSystemTrayIcon:
     menu.addSeparator()
     power = menu.addAction("Apagar / encender luces")
     power.triggered.connect(lambda: window.set_backlight(not window.backlight))
-    show = menu.addAction("Abrir ventana")
-    show.triggered.connect(lambda: (window.show(), window.raise_(), window.activateWindow()))
     menu.addSeparator()
     menu.addAction("Salir").triggered.connect(app.quit)
     tray.setContextMenu(menu)
@@ -579,10 +578,13 @@ def main() -> None:
     app.setApplicationName("kblinkboard")
     window = MainWindow()
     if QSystemTrayIcon.isSystemTrayAvailable():
-        # Closing the window only hides it; the app stays in the menu bar.
-        app.setQuitOnLastWindowClosed(False)
         window.tray = build_tray(app, window)
     app.aboutToQuit.connect(window.worker.shutdown)
+    # Ctrl+C in the terminal: Python only runs its signal handler when it gets
+    # control back, which Qt's C++ event loop never gives; an idle timer does.
+    signal.signal(signal.SIGINT, lambda *_: app.quit())
+    sigint_timer = QTimer(app, interval=200, timeout=lambda: None)
+    sigint_timer.start()
     window.show()
     sys.exit(app.exec())
 
